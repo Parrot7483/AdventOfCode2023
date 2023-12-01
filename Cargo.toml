@@ -1,0 +1,18 @@
+[package]
+name = "AdventOfCode"
+version = "2023.0.0"
+edition = "2021"
+
+[[bin]]
+name = "template"
+path = "./template/main.rs"
+
+[[bin]]
+name = "day1"
+path = "./day01/main.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+regex-lite = "0.1.5"
+
