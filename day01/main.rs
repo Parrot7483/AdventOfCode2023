@@ -27,22 +27,19 @@ fn nums(line: &str) -> (u32, u32) {
     let combined = format!(r"(?:{double})|(?:{single})");
     let re = Regex::new(&combined).unwrap();
 
-    if let Some(captures) = re.captures(line) {
-        match (captures.get(1), captures.get(2), captures.get(3)) {
-            (Some(a), Some(b), None) => {
-                let num1 = num_to_int(a.as_str());
-                let num2 = num_to_int(b.as_str());
-                return (num1, num2)
-            }
-            (None, None, Some(a)) => {
-                let num1 = num_to_int(a.as_str());
-                return (num1, num1)
-            }
-            _ => panic!("No numbers found in captures: {captures:?}");
+    let captures = re.captures(line).expect("Should return capture: {line}");
+    match (captures.get(1), captures.get(2), captures.get(3)) {
+        (Some(a), Some(b), None) => {
+            let num1 = num_to_int(a.as_str());
+            let num2 = num_to_int(b.as_str());
+            return (num1, num2)
         }
+        (None, None, Some(a)) => {
+            let num1 = num_to_int(a.as_str());
+            return (num1, num1)
+        }
+        _ => panic!("No numbers found in captures: {captures:?}"),
     }
-
-    panic!("No captures found: {line}");
 }
 
 fn main() {
