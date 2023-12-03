@@ -1,3 +1,4 @@
+use itertools::Itertools;
 use regex_lite::Regex;
 use std::fs;
 
@@ -20,7 +21,6 @@ fn find_numbers(map: &str) -> Vec<Number> {
     let re = Regex::new(r"\d+").unwrap();
 
     let mut result = vec![];
-    for (i, line) in map.lines().enumerate() {
         for m in re.find_iter(line) {
             result.push(Number {
                 num: m.as_str().parse().unwrap(),
@@ -29,7 +29,6 @@ fn find_numbers(map: &str) -> Vec<Number> {
                 col_end: m.end() as i32 - 1,
             });
         }
-    }
 
     result
 }
@@ -89,20 +88,21 @@ fn part2(numbers: &Vec<Number>, symbols: &Vec<Symbol>) -> u32 {
             continue;
         };
 
-        let neighbors: Vec<_> = numbers.iter().filter(|n| neighbors(n, s)).collect();
-
-        if neighbors.len() != 2 {
-            continue;
+        if let Some((a, b)) = numbers
+            .iter()
+            .filter(|n| neighbors(n, s))
+            .map(|n| n.num)
+            .collect_tuple()
+        {
+            result += a * b;
         }
-
-        result += neighbors[0].num * neighbors[1].num;
     }
 
     result
 }
 
 fn main() {
-    let file_path = "./day03/input.txt";
+    let file_path = "./day03/test1.txt";
     let content = fs::read_to_string(file_path).unwrap();
 
     let numbers = find_numbers(&content);

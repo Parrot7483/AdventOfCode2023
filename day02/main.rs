@@ -1,6 +1,6 @@
-use std::fs::read_to_string;
-use std::cmp::max;
 use regex_lite::Regex;
+use std::cmp::max;
+use std::fs::read_to_string;
 use std::str::FromStr;
 
 #[derive(Debug)]
@@ -12,7 +12,7 @@ struct ParseRoundError(String);
 #[derive(Debug)]
 struct Game {
     id: u32,
-    rounds: Vec<Round>, 
+    rounds: Vec<Round>,
 }
 
 #[derive(Debug)]
@@ -29,12 +29,7 @@ impl FromStr for Game {
         let re = Regex::new(r"Game ([[:digit:]]+): (.*)").unwrap();
         let captures = re.captures(s).unwrap();
 
-        let id: u32 = captures
-            .get(1)
-            .unwrap()
-            .as_str()
-            .parse()
-            .unwrap();
+        let id: u32 = captures.get(1).unwrap().as_str().parse().unwrap();
 
         let rounds: Vec<Round> = captures
             .get(2)
@@ -43,14 +38,14 @@ impl FromStr for Game {
             .split("; ")
             .map(|s| s.parse().unwrap())
             .collect();
-        
-        Ok(Game {id, rounds})
+
+        Ok(Game { id, rounds })
     }
 }
 
 impl FromStr for Round {
     type Err = ParseRoundError;
-    
+
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let re_red = Regex::new("([[:digit:]]+) red").unwrap();
         let re_blue = Regex::new("([[:digit:]]+) blue").unwrap();
@@ -58,20 +53,20 @@ impl FromStr for Round {
 
         let red: u32 = match re_red.captures(s) {
             Some(num) => num.get(1).unwrap().as_str().parse().unwrap(),
-            None => 0
+            None => 0,
         };
 
         let green: u32 = match re_green.captures(s) {
             Some(num) => num.get(1).unwrap().as_str().parse().unwrap(),
-            None => 0
+            None => 0,
         };
 
         let blue: u32 = match re_blue.captures(s) {
             Some(num) => num.get(1).unwrap().as_str().parse().unwrap(),
-            None => 0
+            None => 0,
         };
 
-        Ok(Round {red, green, blue})
+        Ok(Round { red, green, blue })
     }
 }
 
@@ -118,8 +113,7 @@ fn part2(games: &Vec<Game>) -> u32 {
 fn main() {
     let file_path = "./day02/input.txt";
 
-    let games: Vec<Game> = 
-        read_to_string(file_path)
+    let games: Vec<Game> = read_to_string(file_path)
         .unwrap()
         .lines()
         .map(|line| line.parse().unwrap())

@@ -3,7 +3,7 @@ use std::fs;
 
 fn num_to_int(num: &str) -> u32 {
     if let Ok(i) = num.parse::<u32>() {
-        return i
+        return i;
     }
 
     match num {
@@ -16,7 +16,7 @@ fn num_to_int(num: &str) -> u32 {
         "seven" => return 7,
         "eight" => return 8,
         "nine" => return 9,
-        _ => panic!("Can not convert string: {num}")
+        _ => panic!("Can not convert string: {num}"),
     }
 }
 
@@ -32,11 +32,11 @@ fn nums(line: &str) -> (u32, u32) {
         (Some(a), Some(b), None) => {
             let num1 = num_to_int(a.as_str());
             let num2 = num_to_int(b.as_str());
-            return (num1, num2)
+            return (num1, num2);
         }
         (None, None, Some(a)) => {
             let num1 = num_to_int(a.as_str());
-            return (num1, num1)
+            return (num1, num1);
         }
         _ => panic!("No numbers found in captures: {captures:?}"),
     }

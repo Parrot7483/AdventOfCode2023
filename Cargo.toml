@@ -23,4 +23,5 @@ path = "./day03/main.rs"
 
 [dependencies]
 regex-lite = "0.1.5"
+itertools = "0.12.0"
 
