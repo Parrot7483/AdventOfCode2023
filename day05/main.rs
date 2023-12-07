@@ -57,9 +57,7 @@ fn parse(s: &str) -> (Vec<u64>, Vec<(u64, u64)>, Vec<Recipe>) {
             maps.push((d, s, l));
         }
 
-        recipes.push(Recipe {
-            maps: maps,
-        });
+        recipes.push(Recipe { maps: maps });
     }
 
     (seeds, ranges, recipes)
@@ -73,7 +71,7 @@ fn part2(ranges: &Vec<(u64, u64)>, rs: &Vec<Recipe>) -> u64 {
     let mut min: u64 = u64::MAX;
 
     for (b, l) in ranges {
-        print!("Range {}..{} -> new min: ", b, b+l);
+        print!("Range {}..{} -> new min: ", b, b + l);
 
         for i in *b..(b + l) {
             min = u64::min(min, apply_recipes(i, rs));

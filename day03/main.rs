@@ -21,14 +21,14 @@ fn find_numbers(map: &str) -> Vec<Number> {
     let re = Regex::new(r"\d+").unwrap();
 
     let mut result = vec![];
-        for m in re.find_iter(line) {
-            result.push(Number {
-                num: m.as_str().parse().unwrap(),
-                row: i as i32,
-                col_start: m.start() as i32,
-                col_end: m.end() as i32 - 1,
-            });
-        }
+    for m in re.find_iter(line) {
+        result.push(Number {
+            num: m.as_str().parse().unwrap(),
+            row: i as i32,
+            col_start: m.start() as i32,
+            col_end: m.end() as i32 - 1,
+        });
+    }
 
     result
 }
