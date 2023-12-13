@@ -31,9 +31,15 @@ path = "./day05/main.rs"
 name = "day6"
 path = "./day06/main.rs"
 
+[[bin]]
+name = "day7"
+path = "./day07/main.rs"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 regex-lite = "0.1.5"
 itertools = "0.12.0"
+num-traits = "0.2"
+num-derive = "0.4"
 
